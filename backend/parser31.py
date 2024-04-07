@@ -5,11 +5,11 @@ def parse_to_latex(B, premises, gamma):
         if t[0] == 'KEYWORD':
             if t[1] == 'arrowseq':
                 if not is_after_arrowseq:  # Only add \vdash if the previous wasn't an arrowseq
-                    return '\\vdash ', True
+                    return r'\vdash ', True
                 else:
                     return '', True  # Skip this arrowseq
             elif t[1] == 'Gamma':
-              return '\\Gamma ', False
+              return r'\Gamma ', False
             else:
                 return t[1] + ' ', False
         elif t[0] == 'VARIABLE':
@@ -17,7 +17,7 @@ def parse_to_latex(B, premises, gamma):
         elif t[0] == 'IDENTIFIER' and t[1] == 'B':
             return B[0][1], False
         elif t[0] == 'IDENTIFIER' and t[1] == 'Gamma':
-          return '\\Gamma', False
+          return r'\Gamma', False
         elif t[0] == 'PUNCTUATION' and t[1] == '::':
             return ',', False
         return '', False
@@ -32,9 +32,9 @@ def parse_to_latex(B, premises, gamma):
 
     for t in premises:
         latex_part, is_after_arrowseq = tuple_to_latex(t, is_after_arrowseq)
-        if latex_part == '\\Gamma' and gamma_and == False:
+        if latex_part == '\Gamma' and gamma_and == False:
           gamma_and = True
-        if gamma_and == True and latex_part == '\\Gamma' and not first_premise:
+        if gamma_and == True and latex_part == '\Gamma' and not first_premise:
           latex_part = '& ' + latex_part
         premises_latex_parts.append(latex_part)
         first_premise = False
@@ -54,5 +54,5 @@ def parse_to_latex(B, premises, gamma):
     else:
       join_list = [j[1] for j in B]
       B_identifier = ' '.join(join_list)
-    latex = f"\\[\\infer{{{gamma_latex}\\vdash {B_identifier}}}{{{premises_latex}}}\\]"
+    latex = r"\[" + r"\infer{" + f"{gamma_latex}" + r"\vdash " + f"{B_identifier}" + r"}{" + f"{premises_latex}" + r"}" + r"\]"
     return latex

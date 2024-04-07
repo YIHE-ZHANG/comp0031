@@ -30,7 +30,7 @@ gamma_2 =[('KEYWORD', 'Gamma')]
 
 # Parse and print the LaTeX representation 1
 latex_representation = parse_to_latex(B_1, premises_1, gamma_1)
-print(latex_representation)  # Use print to demonstrate the actual output
+latex_representation
 
 # Parse and print the LaTeX representation 2
 latex_representation_2 = parse_to_latex(B_2, premises_2, gamma_2)
